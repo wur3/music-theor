@@ -1,25 +1,15 @@
 import copy
 from note import Note
+from scale import Scale
 
-class MinorScale:
-
+class MinorScale(Scale):
     # the pattern of half and whole steps to create the natural minor scale from the first note
     minorIntervals = ['whole', 'half', 'whole', 'whole', 'half', 'whole', 'whole']
 
     def __init__(self, args, option=0):
         # option 0: from key + interval list
         if option == 0:
-            self.keys = [Note(args)]
-            for interval in self.minorIntervals:
-                lastNote = self.keys[-1]
-                newNote = copy.deepcopy(lastNote)
-                if interval == 'half':
-                    newNote.moveHalfStepUp()
-                elif interval == 'whole':
-                    newNote.moveWholeStepUp()
-                else:
-                    raise ValueError
-                self.keys.append(newNote)
+            option0(args, self.minorIntervals)
 
         # option 1: from parallel major
         elif option == 1:
@@ -42,9 +32,3 @@ class MinorScale:
     def relativeMajor(self):
         from majorScale import MajorScale
         return MajorScale(self, 2)
-
-    def __str__(self):
-        s = ''
-        for k in self.keys:
-            s = s + str(k) + ' '
-        return s

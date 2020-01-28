@@ -16,5 +16,8 @@ class Note:
     def moveHalfStepDown(self):
         self.index = (self.index - 1) % len(self.notes)
 
+    def __repr__(self):
+        return self.notes[self.index]
+
     def __str__(self):
         return self.notes[self.index]
